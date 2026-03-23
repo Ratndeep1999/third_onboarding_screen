@@ -47,13 +47,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ],
         ),
       ),
-      body: SafeArea(
-        /// Onboarding Data Widget
-        child: OnboardingDataWidget(
-          pageIndex: _pageIndex,
-          pageController: _pageController,
-          onPageChanged: (index) => debugPrint("Index: $index"),
-        ),
+      body: OnboardingDataWidget(
+        pageIndex: _pageIndex,
+        pageController: _pageController,
+        onPageChanged: (index) => debugPrint("Index: $index"),
       ),
     );
   }
