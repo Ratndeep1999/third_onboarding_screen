@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:third_onboarding_screen/utils/constants/app_texts.dart';
+import 'package:third_onboarding_screen/onboarding/data/onboarding_data.dart';
+import 'package:third_onboarding_screen/onboarding/widgets/onboarding_data_widget.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -11,6 +12,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
+  int _pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             TextButton(onPressed: () {}, child: Text("Skip")),
 
             /// Dot Indicator
-            SmoothPageIndicator(controller: _pageController, count: 3),
+            SmoothPageIndicator(
+              controller: _pageController,
+              count: onboardingData.length,
+              onDotClicked: (index) => debugPrint("Index: $index"),
+              effect: const SwapEffect(
+                type: SwapType.yRotation,
+                dotHeight: 16,
+                dotWidth: 16,
+                activeDotColor: Colors.orange,
+                dotColor: Colors.black12,
+                radius: 5.0,
+                spacing: 16,
+                strokeWidth: 2.0,
+              ),
+            ),
 
             /// Button
             FilledButton(onPressed: () {}, child: Text("Next")),
@@ -32,47 +48,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              /// Icon
-              Image(
-                alignment: Alignment.center,
-                image: AssetImage("assets/onboarding/onboarding_1.png"),
-                height: 300,
-                width: 300,
-                fit: BoxFit.contain,
-              ),
-              SizedBox(height: 30),
-
-              /// Title
-              Text(
-                AppText.kOnBoardingTitle1,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 2,
-                ),
-              ),
-              SizedBox(height: 30),
-
-              /// Description
-              Text(
-                AppText.kOnBoardingDesc1,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black26,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w300,
-                  letterSpacing: 1,
-                ),
-              ),
-            ],
-          ),
+        /// Onboarding Data Widget
+        child: OnboardingDataWidget(
+          pageIndex: _pageIndex,
+          pageController: _pageController,
+          onPageChanged: (index) => debugPrint("Index: $index"),
         ),
       ),
     );
