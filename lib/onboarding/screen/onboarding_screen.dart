@@ -20,7 +20,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       /// Bottom Menu Widget (Skip, Dot Indicator and Next)
       bottomSheet: BottomMenuWidget(
         pageController: _pageController,
-        onSkipPress: () => debugPrint("Skip"),
+        onSkipPress: onSkipPress,
         onNextPress: () => debugPrint("Next"),
         onDotClicked: (index) => debugPrint("Index: $index"),
         isLastPage: ((_pageIndex + 1) == onboardingData.length),
@@ -35,7 +35,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  // Skip Press
-  // Dot Press
-  // Next Press
+  /// Skip Press
+  void onSkipPress() {
+    _pageController.animateToPage(
+      onboardingData.length - 1,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 }
