@@ -21,8 +21,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       bottomSheet: BottomMenuWidget(
         pageController: _pageController,
         onSkipPress: onSkipPress,
-        onNextPress: () => debugPrint("Next"),
-        onDotClicked: (index) => debugPrint("Index: $index"),
+        onNextPress: onNextPress,
+        onDotClicked: onDotClicked,
         isLastPage: ((_pageIndex + 1) == onboardingData.length),
       ),
 
@@ -43,4 +43,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       curve: Curves.easeInOut,
     );
   }
+
+  /// Dot Clicked
+  void onDotClicked(int index) {
+    _pageController.animateToPage(
+      index,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  // Next Press
 }
