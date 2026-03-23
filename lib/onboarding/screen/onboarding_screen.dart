@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:third_onboarding_screen/utils/constants/app_texts.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -9,9 +10,27 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            /// Skip Button
+            TextButton(onPressed: () {}, child: Text("Skip")),
+
+            /// Dot Indicator
+            SmoothPageIndicator(controller: _pageController, count: 3),
+
+            /// Button
+            FilledButton(onPressed: () {}, child: Text("Next")),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
