@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:third_onboarding_screen/onboarding/data/onboarding_data.dart';
+import 'package:third_onboarding_screen/onboarding/widgets/bottom_menu_widget.dart';
 import 'package:third_onboarding_screen/onboarding/widgets/onboarding_data_widget.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -17,41 +17,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            /// Skip Button
-            TextButton(onPressed: () {}, child: Text("Skip")),
-
-            /// Dot Indicator
-            SmoothPageIndicator(
-              controller: _pageController,
-              count: onboardingData.length,
-              onDotClicked: (index) => debugPrint("Index: $index"),
-              effect: const SwapEffect(
-                type: SwapType.yRotation,
-                dotHeight: 16,
-                dotWidth: 16,
-                activeDotColor: Colors.orange,
-                dotColor: Colors.black12,
-                radius: 5.0,
-                spacing: 16,
-                strokeWidth: 2.0,
-              ),
-            ),
-
-            /// Button
-            FilledButton(onPressed: () {}, child: Text("Next")),
-          ],
-        ),
+      /// Bottom Menu Widget (Skip, Dot Indicator and Next)
+      bottomSheet: BottomMenuWidget(
+        pageController: _pageController,
+        onSkipPress: () => debugPrint("Skip"),
+        onNextPress: () => debugPrint("Next"),
+        onDotClicked: (index) => debugPrint("Index: $index"),
+        isLastPage: ((_pageIndex + 1) == onboardingData.length),
       ),
+
+      /// Onboarding Data Widget
       body: OnboardingDataWidget(
         pageIndex: _pageIndex,
         pageController: _pageController,
-        onPageChanged: (index) => debugPrint("Index: $index"),
+        onPageChanged: (index) => setState(() => _pageIndex = index),
       ),
     );
   }
+
+  // Skip Press
+  // Dot Press
+  // Next Press
 }
