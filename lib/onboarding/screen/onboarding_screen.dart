@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:third_onboarding_screen/onboarding/data/onboarding_data.dart';
 import 'package:third_onboarding_screen/onboarding/widgets/bottom_menu_widget.dart';
 import 'package:third_onboarding_screen/onboarding/widgets/onboarding_data_widget.dart';
+import 'package:third_onboarding_screen/screens/home_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -53,5 +54,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  // Next Press
+  /// Next Press
+  void onNextPress() {
+    if (_pageIndex == onboardingData.length - 1) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
+    } else {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
 }
