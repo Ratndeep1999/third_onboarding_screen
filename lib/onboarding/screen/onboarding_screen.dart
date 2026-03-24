@@ -58,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   /// Next Press
   Future<void> onNextPress() async {
     /// Store Onboarding State
-    SharedPrefService.instance.setOnboardingStatus();
+    await SharedPrefService.instance.setOnboardingStatus();
     if (_pageIndex == onboardingData.length - 1) {
       Navigator.pushReplacement(
         context,
