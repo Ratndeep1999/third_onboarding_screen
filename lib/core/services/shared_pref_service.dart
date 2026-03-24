@@ -9,10 +9,10 @@ class SharedPrefService {
   static SharedPrefService get instance => _instance;
 
   /// Shared Preference Object
-  static SharedPreferences? _prefs;
+  SharedPreferences? _prefs;
 
-  /// Initialize Object
-  Future<SharedPreferences> get _instancePref async {
+  /// Initialize SharedPreferences
+  Future<SharedPreferences> get _prefsInstance async {
     return _prefs ??= await SharedPreferences.getInstance();
   }
 
@@ -21,19 +21,19 @@ class SharedPrefService {
 
   /// Set Onboarding Status
   Future<void> setOnboardingStatus() async {
-    final prefs = await _instancePref;
-    prefs.setBool(_kOnboardingStatus, true);
+    final prefs = await _prefsInstance;
+    await prefs.setBool(_kOnboardingStatus, true);
   }
 
   /// Get Onboarding Status
   Future<bool> getOnboardingStatus() async {
-    final prefs = await _instancePref;
+    final prefs = await _prefsInstance;
     return prefs.getBool(_kOnboardingStatus) ?? false;
   }
 
   /// Clear Onboarding State
   Future<void> clearOnboardingState() async {
-    final prefs = await _instancePref;
-    prefs.clear();
+    final prefs = await _prefsInstance;
+    await prefs.remove(_kOnboardingStatus);
   }
 }
