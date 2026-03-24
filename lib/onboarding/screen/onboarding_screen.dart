@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:third_onboarding_screen/core/services/shared_pref_service.dart';
 import 'package:third_onboarding_screen/onboarding/data/onboarding_data.dart';
 import 'package:third_onboarding_screen/onboarding/widgets/bottom_menu_widget.dart';
 import 'package:third_onboarding_screen/onboarding/widgets/onboarding_data_widget.dart';
@@ -55,7 +56,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   /// Next Press
-  void onNextPress() {
+  Future<void> onNextPress() async {
+    /// Store Onboarding State
+    SharedPrefService.instance.setOnboardingStatus();
     if (_pageIndex == onboardingData.length - 1) {
       Navigator.pushReplacement(
         context,
